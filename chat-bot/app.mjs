@@ -11,7 +11,13 @@
  *
  */
 
-import { getUserInfo } from "./userInfo";
+async function getUserInfo() {
+  const userInfo = await fetch(
+    "https://il3b62aiu5.execute-api.ap-southeast-2.amazonaws.com/Prod/user-info/"
+  );
+
+  return userInfo.json();
+}
 
 export const lambdaHandler = async (event, context) => {
   const userInfo = await getUserInfo();
