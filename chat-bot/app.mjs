@@ -11,8 +11,10 @@
  *
  */
 
+import { getUserInfo } from "./userInfo";
+
 export const lambdaHandler = async (event, context) => {
-  const inputText = event.inputTranscript;
+  const userInfo = await getUserInfo();
 
   const response = {
     sessionState: {
@@ -26,8 +28,8 @@ export const lambdaHandler = async (event, context) => {
     },
     messages: [
       {
-        contentType: "PlainText",
-        content: "hello from lambda",
+        contentType: "CustomPayload",
+        content: userInfo,
       },
     ],
   };
