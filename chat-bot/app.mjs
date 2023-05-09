@@ -29,7 +29,7 @@ export const lambdaHandler = async (event, context) => {
     messages: [
       {
         contentType: "CustomPayload",
-        content: userInfo,
+        content: JSON.stringify(userInfo),
       },
     ],
   };
