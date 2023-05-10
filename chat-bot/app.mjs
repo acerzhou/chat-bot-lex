@@ -11,34 +11,49 @@
  *
  */
 
-async function getUserInfo() {
-  const userInfo = await fetch(
-    "https://il3b62aiu5.execute-api.ap-southeast-2.amazonaws.com/Prod/user-info/"
-  );
-
-  return userInfo.json();
-}
-
-export const lambdaHandler = async (event, context) => {
-  const userInfo = await getUserInfo();
-
-  const response = {
+function getResponse(intent, content) {
+  return {
     sessionState: {
       dialogAction: {
         type: "Close",
       },
       intent: {
-        name: "GetUserInfo",
+        name: intent,
         state: "Fulfilled",
       },
     },
     messages: [
       {
         contentType: "CustomPayload",
-        content: JSON.stringify(userInfo),
+        content: content,
       },
     ],
   };
+}
+
+async function getUserInfoResponse(intent) {
+  const userInfo = await fetch(
+    "https://il3b62aiu5.execute-api.ap-southeast-2.amazonaws.com/Prod/user-info/"
+  );
+
+  const response = getResponse(intent, userInfo);
 
   return response;
+}
+
+async function updateUserInfoResponse(intent, event) {
+  const response = getResponse(intent, event);
+
+  return response;
+}
+
+export const lambdaHandler = async (event, context) => {
+  const intent = event.sessionState.intent.name;
+
+  switch (intent) {
+    case "GetUserInfo":
+      return await getUserInfoResponse(intent);
+    case "UpdateUserInfo":
+      return await updateUserInfoResponse(intent, event);
+  }
 };
