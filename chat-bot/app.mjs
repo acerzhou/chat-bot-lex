@@ -42,7 +42,7 @@ async function getUserInfoResponse(intent) {
 }
 
 async function updateUserInfoResponse(intent, event) {
-  const response = getResponse(intent, event);
+  const response = getResponse(intent, JSON.stringify(event));
 
   return response;
 }
