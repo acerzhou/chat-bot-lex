@@ -36,9 +36,11 @@ async function getUserInfoResponse(intent) {
     "https://il3b62aiu5.execute-api.ap-southeast-2.amazonaws.com/Prod/user-info/"
   );
 
-  console.log("get user info", userInfo);
+  const userInfoJson = await userInfo.json();
 
-  const response = getResponse(intent, userInfo);
+  console.log("get user info", userInfoJson);
+
+  const response = getResponse(intent, userInfoJson);
 
   return response;
 }
