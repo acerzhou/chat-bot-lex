@@ -52,6 +52,18 @@ async function updateUserInfoResponse(intent, event) {
   return response;
 }
 
+async function getProductsResponse(intent) {
+  const products = await fetch(
+    "https://il3b62aiu5.execute-api.ap-southeast-2.amazonaws.com/Prod/products/"
+  );
+
+  const productsJson = await products.json();
+
+  const response = getResponse(intent, JSON.stringify(productsJson));
+
+  return response;
+}
+
 export const lambdaHandler = async (event, context) => {
   const intent = event.sessionState.intent.name;
 
@@ -60,5 +72,7 @@ export const lambdaHandler = async (event, context) => {
       return await getUserInfoResponse(intent);
     case "UpdateUserName":
       return await updateUserInfoResponse(intent, event);
+    case "GetProducts":
+      return await getProductsResponse(intent);
   }
 };
