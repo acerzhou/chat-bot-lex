@@ -41,7 +41,7 @@ async function getUserInfoResponse(intent) {
 
   console.log("get user info", userInfoJson);
 
-  const response = getResponse(intent, userInfoJson);
+  const response = getResponse(intent, JSON.stringify(userInfoJson));
 
   return response;
 }
