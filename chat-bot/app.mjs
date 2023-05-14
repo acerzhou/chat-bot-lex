@@ -21,6 +21,7 @@ function getResponse(intent, content) {
         name: intent,
         state: "Fulfilled",
       },
+      activeContexts: [],
     },
     messages: [
       {
