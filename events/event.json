@@ -1,5 +1,10 @@
 {
   "body": "{\"message\": \"hello world\"}",
+  "sessionState": {
+    "intent": {
+      "name": "GetUserInfo"
+    }
+  },
   "resource": "/{proxy+}",
   "path": "/path/to/resource",
   "httpMethod": "POST",
