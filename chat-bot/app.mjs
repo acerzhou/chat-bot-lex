@@ -21,7 +21,6 @@ function getResponse(intent, content) {
         name: intent,
         state: "Fulfilled",
       },
-      activeContexts: [],
     },
     messages: [
       {
@@ -64,6 +63,18 @@ async function getProductsResponse(intent) {
   return response;
 }
 
+async function getCartResponse(intent) {
+  const cart = await fetch(
+    "https://il3b62aiu5.execute-api.ap-southeast-2.amazonaws.com/Prod/cart/"
+  );
+
+  const cartJson = await cart.json();
+
+  const response = getResponse(intent, JSON.stringify(cartJson));
+
+  return response;
+}
+
 export const lambdaHandler = async (event, context) => {
   const intent = event.sessionState.intent.name;
 
@@ -74,5 +85,7 @@ export const lambdaHandler = async (event, context) => {
       return await updateUserInfoResponse(intent, event);
     case "GetProducts":
       return await getProductsResponse(intent);
+    case "ShowMyCart":
+      return await getCartResponse(intent);
   }
 };
