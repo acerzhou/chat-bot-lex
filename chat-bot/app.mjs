@@ -83,8 +83,8 @@ export const lambdaHandler = async (event, context) => {
   switch (intent) {
     case "GetUserInfo":
       return await getUserInfoResponse(intent);
-    case "UpdateUserName":
-      return await updateUserInfoResponse(intent, event);
+    //case "UpdateUserName":
+    // return await updateUserInfoResponse(intent, event);
     case "GetProducts":
       return await getProductsResponse(intent);
     case "ShowMyCart":
