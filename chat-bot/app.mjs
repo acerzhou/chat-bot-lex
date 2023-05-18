@@ -87,5 +87,7 @@ export const lambdaHandler = async (event, context) => {
       return await getProductsResponse(intent);
     case "ShowMyCart":
       return await getCartResponse(intent);
+    case "Checkout":
+      return await getCartResponse(intent);
   }
 };
