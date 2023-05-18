@@ -63,12 +63,14 @@ async function getProductsResponse(intent) {
   return response;
 }
 
-async function getCartResponse(intent) {
+async function getCartResponse(intent, action) {
   const cart = await fetch(
     "https://il3b62aiu5.execute-api.ap-southeast-2.amazonaws.com/Prod/cart/"
   );
 
   const cartJson = await cart.json();
+
+  cartJson.type = action;
 
   const response = getResponse(intent, JSON.stringify(cartJson));
 
@@ -86,8 +88,8 @@ export const lambdaHandler = async (event, context) => {
     case "GetProducts":
       return await getProductsResponse(intent);
     case "ShowMyCart":
-      return await getCartResponse(intent);
+      return await getCartResponse(intent, "cart");
     case "Checkout":
-      return await getCartResponse(intent);
+      return await getCartResponse(intent, "checkout");
   }
 };
