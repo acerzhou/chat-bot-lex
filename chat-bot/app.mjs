@@ -81,6 +81,38 @@ async function getCartResponse(intent, action) {
   return response;
 }
 
+async function getPromotionProducts(intent) {
+  const promotions = await fetch(
+    "https://il3b62aiu5.execute-api.ap-southeast-2.amazonaws.com/Prod/products/promotion"
+  );
+
+  const promotionJson = await promotions.json();
+
+  const products = await fetch(
+    "https://il3b62aiu5.execute-api.ap-southeast-2.amazonaws.com/Prod/products/"
+  );
+
+  const productsJson = await products.json();
+
+  const responseJson = {
+    type: "product",
+    items: [],
+  };
+
+  promotionJson.forEach((promotion) => {
+    productsJson.items.forEach((product) => {
+      if (promotion.productId === product.id) {
+        product.promotionPrice = promotion.price;
+        responseJson.items.push(product);
+      }
+    });
+  });
+
+  const response = getResponse(intent, JSON.stringify(responseJson));
+
+  return response;
+}
+
 export const lambdaHandler = async (event, context) => {
   const intent = event.sessionState.intent.name;
 
@@ -97,5 +129,7 @@ export const lambdaHandler = async (event, context) => {
       return await getCartResponse(intent, "checkout");
     case "PlanceOrder":
       return await getPlaceOrderResponse(intent);
+    case "GetPromotionProduct":
+      return await getPromotionProducts(intent);
   }
 };
