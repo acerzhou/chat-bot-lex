@@ -46,9 +46,11 @@ async function getUserInfoResponse(intent) {
 }
 
 async function getPlaceOrderResponse(intent) {
-  const response = {
+  const orderJson = {
     type: "placeOrder",
   };
+
+  const response = getResponse(intent, JSON.stringify(orderJson));
 
   return response;
 }
