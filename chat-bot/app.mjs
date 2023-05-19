@@ -83,7 +83,7 @@ async function getCartResponse(intent, action) {
 
 async function getPromotionProducts(intent) {
   const promotions = await fetch(
-    "https://il3b62aiu5.execute-api.ap-southeast-2.amazonaws.com/Prod/products/promotion"
+    "https://il3b62aiu5.execute-api.ap-southeast-2.amazonaws.com/Prod/promotions/"
   );
 
   const promotionJson = await promotions.json();
