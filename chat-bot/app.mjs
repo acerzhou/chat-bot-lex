@@ -45,8 +45,10 @@ async function getUserInfoResponse(intent) {
   return response;
 }
 
-async function updateUserInfoResponse(intent, event) {
-  const response = getResponse(intent, JSON.stringify(event));
+async function getPlaceOrderResponse(intent) {
+  const response = {
+    type: "placeOrder",
+  };
 
   return response;
 }
@@ -91,5 +93,7 @@ export const lambdaHandler = async (event, context) => {
       return await getCartResponse(intent, "cart");
     case "Checkout":
       return await getCartResponse(intent, "checkout");
+    case "PlaceOrder":
+      return await getPlaceOrderResponse(intent, "checkout");
   }
 };
