@@ -96,6 +96,6 @@ export const lambdaHandler = async (event, context) => {
     case "Checkout":
       return await getCartResponse(intent, "checkout");
     case "PlaceOrder":
-      return await getPlaceOrderResponse(intent, "checkout");
+      return await getPlaceOrderResponse(intent);
   }
 };
