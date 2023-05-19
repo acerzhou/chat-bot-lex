@@ -102,7 +102,7 @@ async function getPromotionProducts(intent) {
   promotionJson.forEach((promotion) => {
     productsJson.items.forEach((product) => {
       if (promotion.sku === product.sku) {
-        product.promotionPrice = promotion.price;
+        product.promotionPrice = promotion.promotionPrice;
         responseJson.items.push(product);
       }
     });
