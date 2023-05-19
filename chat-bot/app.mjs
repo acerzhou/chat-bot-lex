@@ -101,7 +101,7 @@ async function getPromotionProducts(intent) {
 
   promotionJson.forEach((promotion) => {
     productsJson.items.forEach((product) => {
-      if (promotion.productId === product.id) {
+      if (promotion.sku === product.sku) {
         product.promotionPrice = promotion.price;
         responseJson.items.push(product);
       }
