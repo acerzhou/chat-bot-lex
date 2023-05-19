@@ -113,14 +113,24 @@ async function getPromotionProducts(intent) {
   return response;
 }
 
+async function updateUserInfoResponse(intent, event) {
+  const orderJson = {
+    type: "updateUserInfo",
+  };
+
+  const response = getResponse(intent, JSON.stringify(orderJson));
+
+  return response;
+}
+
 export const lambdaHandler = async (event, context) => {
   const intent = event.sessionState.intent.name;
 
   switch (intent) {
     case "GetUserInfo":
       return await getUserInfoResponse(intent);
-    //case "UpdateUserName":
-    // return await updateUserInfoResponse(intent, event);
+    case "UpdateUserName":
+      return await updateUserInfoResponse(intent, event);
     case "GetProducts":
       return await getProductsResponse(intent);
     case "ShowMyCart":
